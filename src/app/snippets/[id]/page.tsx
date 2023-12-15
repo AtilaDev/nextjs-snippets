@@ -8,6 +8,8 @@ interface SnippetShowPageProps {
 }
 
 export default async function SnippetShowPage(props: SnippetShowPageProps) {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+
   const snippet = await db.snippet.findFirst({
     where: {
       id: parseInt(props.params.id),
@@ -15,7 +17,7 @@ export default async function SnippetShowPage(props: SnippetShowPageProps) {
   });
 
   if (!snippet) {
-    notFound();
+    return notFound();
   }
 
   return <div>{snippet.title}</div>;
